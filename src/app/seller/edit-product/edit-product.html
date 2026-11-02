@@ -1,0 +1,139 @@
+<div class="page-container" *ngIf="product">
+
+  <header class="topbar">
+    <h2>BidZone Seller Panel</h2>
+    <a routerLink="/seller">Seller Dashboard</a>
+  </header>
+
+  <div class="page-heading">
+    <div>
+      <h1>Edit Product</h1>
+      <p>Update your product listing details.</p>
+    </div>
+
+    <a routerLink="/seller/products" class="back-btn">
+      ← Back to My Products
+    </a>
+  </div>
+
+  <div class="form-card">
+
+    <h2>Product Information</h2>
+    <p class="subtitle">Make changes to your existing product.</p>
+
+    <form #editForm="ngForm" (ngSubmit)="saveChanges()">
+
+      <div class="form-group">
+        <label>Product Name *</label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="product.name"
+          required
+          minlength="3">
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea
+          name="description"
+          [(ngModel)]="product.description"
+          rows="4"
+          required>
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Category *</label>
+        <select
+          name="category"
+          [(ngModel)]="product.category"
+          required>
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Vehicles">Vehicles</option>
+          <option value="Collectibles">Collectibles</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Starting Price (₹) *</label>
+          <input
+            type="number"
+            name="startingPrice"
+            [(ngModel)]="product.startingPrice"
+            min="1"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Minimum Bid Increment (₹) *</label>
+          <input
+            type="number"
+            name="minIncrement"
+            [(ngModel)]="product.minIncrement"
+            min="1"
+            required>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Product Image URL *</label>
+        <input
+          type="url"
+          name="imageUrl"
+          [(ngModel)]="product.imageUrl"
+          required>
+      </div>
+
+      <div class="image-preview">
+        <p>Image Preview</p>
+        <img [src]="product.imageUrl" [alt]="product.name">
+      </div>
+
+      <h3 class="section-heading">Auction Schedule</h3>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Auction Start Date & Time *</label>
+          <input
+            type="datetime-local"
+            name="startDate"
+            [(ngModel)]="product.startDate"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Auction End Date & Time *</label>
+          <input
+            type="datetime-local"
+            name="endDate"
+            [(ngModel)]="product.endDate"
+            required>
+        </div>
+
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="cancel()">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-btn" [disabled]="editForm.invalid">
+          Save Changes
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

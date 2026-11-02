@@ -1,0 +1,152 @@
+<div class="page-container">
+
+  <!-- Navbar -->
+  <header class="topbar">
+    <h2>🔨 BidZone</h2>
+
+    <nav>
+      <a routerLink="/results/history">Auction History</a>
+      <a routerLink="/results/winners">Winner Selection</a>
+      <a routerLink="/admin">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Heading -->
+  <section class="page-heading">
+    <div>
+      <h1>Payment Status Dashboard</h1>
+      <p>Monitor winner payments and transaction statuses.</p>
+    </div>
+
+    <span class="page-label">PAYMENT MANAGEMENT</span>
+  </section>
+
+  <!-- Statistics -->
+  <section class="stats-grid">
+
+    <div class="stat-card blue">
+      <span>💳</span>
+      <p>Total Payments</p>
+      <h2>{{ totalPayments }}</h2>
+    </div>
+
+    <div class="stat-card green">
+      <span>✅</span>
+      <p>Paid Payments</p>
+      <h2>{{ paidPayments }}</h2>
+    </div>
+
+    <div class="stat-card orange">
+      <span>⏳</span>
+      <p>Pending Payments</p>
+      <h2>{{ pendingPayments }}</h2>
+    </div>
+
+    <div class="stat-card red">
+      <span>❌</span>
+      <p>Failed Payments</p>
+      <h2>{{ failedPayments }}</h2>
+    </div>
+
+  </section>
+
+  <!-- Total Amount -->
+  <section class="amount-card">
+    <div>
+      <p>Total Successfully Paid Amount</p>
+      <h2>₹{{ totalAmount | number }}</h2>
+    </div>
+    <div class="amount-icon">💰</div>
+  </section>
+
+  <!-- Payment Table -->
+  <section class="payment-section">
+
+    <div class="section-heading">
+      <div>
+        <h2>Payment Transactions</h2>
+        <p>Manage and review auction winner payments.</p>
+      </div>
+
+    <button class="reset-btn" (click)="resetDemo()">
+  Reset to Pending
+</button>
+    </div>
+
+    <div class="table-container">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Product</th>
+            <th>Winner</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let payment of payments">
+
+            <td>#PAY-{{ payment.id }}</td>
+
+            <td>
+              <strong>{{ payment.productName }}</strong>
+            </td>
+
+            <td>{{ payment.winnerName }}</td>
+
+            <td class="amount">
+              ₹{{ payment.amount | number }}
+            </td>
+
+            <td>{{ payment.date | date:'mediumDate' }}</td>
+
+            <td>
+              <span
+                class="status"
+                [class.paid]="payment.status === 'Paid'"
+                [class.pending]="payment.status === 'Pending'"
+                [class.failed]="payment.status === 'Failed'">
+                {{ payment.status }}
+              </span>
+            </td>
+
+            <td>
+              <div class="action-buttons">
+
+                <button
+                  class="paid-btn"
+                  [disabled]="payment.status === 'Paid'"
+                  (click)="markAsPaid(payment.id)">
+                  Mark Paid
+                </button>
+
+                <button
+                  class="failed-btn"
+                  [disabled]="payment.status === 'Failed'"
+                  (click)="markAsFailed(payment.id)">
+                  Mark Failed
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="empty-state" *ngIf="payments.length === 0">
+      <div>💳</div>
+      <h2>No Payment Records</h2>
+      <p>Payment records will appear here.</p>
+    </div>
+
+  </section>
+
+</div>

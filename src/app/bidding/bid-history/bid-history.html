@@ -1,0 +1,156 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <header class="topbar">
+    <h2>🔨 BidZone</h2>
+
+    <a
+      *ngIf="product"
+      [routerLink]="['/bidding/auction', product.id]">
+      Back to Auction
+    </a>
+
+    <a *ngIf="!product" routerLink="/bidding">
+      Live Auctions
+    </a>
+  </header>
+
+  <!-- Product Information -->
+  <section class="page-heading" *ngIf="product">
+
+    <div>
+      <h1>Bid History</h1>
+      <p>Complete bidding activity for {{ product.name }}</p>
+    </div>
+
+    <span class="category">{{ product.category }}</span>
+
+  </section>
+
+  <!-- Product Not Found -->
+  <div class="empty-state" *ngIf="!product">
+    <h2>Product Not Found</h2>
+    <p>We could not find this auction.</p>
+    <a routerLink="/bidding">Back to Live Auctions</a>
+  </div>
+
+  <div *ngIf="product">
+
+    <!-- Statistics -->
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <p>Total Bids</p>
+        <h2>{{ totalBids }}</h2>
+      </div>
+
+      <div class="stat-card">
+        <p>Current Highest Bid</p>
+        <h2>₹{{ product.currentBid | number }}</h2>
+      </div>
+
+      <div class="stat-card">
+        <p>Highest Bidder</p>
+        <h2 class="bidder-name">
+          {{ highestBid?.bidderName || 'No bids yet' }}
+        </h2>
+      </div>
+
+    </section>
+
+    <!-- Highest Bidder -->
+    <section class="winner-card" *ngIf="highestBid">
+
+      <div class="trophy">🏆</div>
+
+      <div>
+        <h2>Current Highest Bidder</h2>
+        <h3>{{ highestBid.bidderName }}</h3>
+        <p>Leading bid: ₹{{ highestBid.bidAmount | number }}</p>
+      </div>
+
+      <span class="winner-badge">Highest Bid</span>
+
+    </section>
+
+    <!-- Bid Table -->
+    <section class="history-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>All Bidding Activities</h2>
+          <p>Latest bids are displayed first.</p>
+        </div>
+      </div>
+
+      <div class="table-container" *ngIf="bids.length > 0">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Bidder Name</th>
+              <th>Bid Amount</th>
+              <th>Date & Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let bid of bids; let i = index">
+
+              <td>
+                <strong>#{{ i + 1 }}</strong>
+              </td>
+
+              <td>{{ bid.bidderName }}</td>
+
+              <td class="amount">
+                ₹{{ bid.bidAmount | number }}
+              </td>
+
+              <td>
+                {{ bid.bidTime | date:'medium' }}
+              </td>
+
+              <td>
+                <span
+                  class="status"
+                  [class.highest]="i === 0">
+                  {{ i === 0 ? 'Highest Bid' : 'Outbid' }}
+                </span>
+              </td>
+
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <!-- No Bids -->
+      <div class="empty-state" *ngIf="bids.length === 0">
+
+        <div class="empty-icon">🔨</div>
+
+        <h2>No Bids Yet</h2>
+
+        <p>
+          No one has placed a bid on this product.
+          Be the first bidder!
+        </p>
+
+        <a
+          [routerLink]="['/bidding/auction', product.id]"
+          class="bid-button">
+          Place Your First Bid
+        </a>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

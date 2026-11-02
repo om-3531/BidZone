@@ -1,0 +1,308 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  min-height: 100vh;
+  padding: 22px;
+  background: #f4f6fb;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+
+.topbar {
+  background: #172653;
+  color: white;
+  padding: 20px 35px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h2 {
+  margin: 0;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Heading */
+
+.page-heading {
+  margin: 35px 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.page-heading h1 {
+  color: #172653;
+  font-size: 30px;
+}
+
+.page-heading p {
+  color: #64748b;
+}
+
+.page-label {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Statistics */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: white;
+  padding: 23px;
+  border-radius: 12px;
+  border-left: 5px solid #2563eb;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.stat-card span {
+  font-size: 25px;
+}
+
+.stat-card p {
+  color: #64748b;
+  margin: 12px 0;
+}
+
+.stat-card h2 {
+  color: #172653;
+  font-size: 28px;
+  margin: 0;
+}
+
+.stat-card.green {
+  border-color: #16a34a;
+}
+
+.stat-card.orange {
+  border-color: #f59e0b;
+}
+
+.stat-card.red {
+  border-color: #dc2626;
+}
+
+/* Amount */
+
+.amount-card {
+  background: #172653;
+  color: white;
+  padding: 25px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.amount-card p {
+  color: #cbd5e1;
+}
+
+.amount-card h2 {
+  font-size: 32px;
+  margin: 8px 0 0;
+}
+
+.amount-icon {
+  font-size: 45px;
+}
+
+/* Payment Table */
+
+.payment-section {
+  background: white;
+  padding: 25px;
+  border-radius: 13px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  color: #172653;
+}
+
+.section-heading p {
+  color: #64748b;
+}
+
+.reset-btn {
+  padding: 11px 18px;
+  background: #e2e8f0;
+  border: none;
+  border-radius: 8px;
+  color: #334155;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f1f5f9;
+}
+
+th {
+  text-align: left;
+  padding: 16px;
+  color: #334155;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #475569;
+  font-size: 13px;
+}
+
+.amount {
+  color: #172653;
+  font-weight: bold;
+}
+
+/* Status */
+
+.status {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Buttons */
+
+.action-buttons {
+  display: flex;
+  gap: 7px;
+}
+
+.action-buttons button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.paid-btn {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.failed-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.action-buttons button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Empty State */
+
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  color: #64748b;
+}
+
+.empty-state div {
+  font-size: 50px;
+}
+
+.empty-state h2 {
+  color: #172653;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading,
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar {
+    padding: 18px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .payment-section {
+    padding: 15px;
+  }
+}

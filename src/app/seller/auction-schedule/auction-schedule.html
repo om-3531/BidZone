@@ -1,0 +1,172 @@
+<div class="page-container">
+
+  <header class="topbar">
+    <h2>BidZone Seller Panel</h2>
+    <a routerLink="/seller">Seller Dashboard</a>
+  </header>
+
+  <div class="page-heading">
+    <div>
+      <h1>Auction Schedule</h1>
+      <p>Monitor and manage your approved product auctions.</p>
+    </div>
+
+    <a routerLink="/seller/products" class="back-btn">
+      ← My Products
+    </a>
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <p>Total Products</p>
+      <h2>{{ products.length }}</h2>
+    </div>
+
+    <div class="stat-card upcoming">
+      <p>Upcoming Auctions</p>
+      <h2>{{ upcomingCount }}</h2>
+    </div>
+
+    <div class="stat-card live">
+      <p>Live Auctions</p>
+      <h2>{{ liveCount }}</h2>
+    </div>
+
+    <div class="stat-card completed">
+      <p>Completed Auctions</p>
+      <h2>{{ completedCount }}</h2>
+    </div>
+
+  </div>
+
+  <div class="message success-message" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="message error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Schedule Editor -->
+  <div class="schedule-editor" *ngIf="selectedProduct">
+
+    <h2>Edit Auction Schedule</h2>
+    <p>Product: <strong>{{ selectedProduct.name }}</strong></p>
+
+    <form #scheduleForm="ngForm" (ngSubmit)="saveSchedule()">
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Auction Start Date & Time</label>
+          <input
+            type="datetime-local"
+            name="startDate"
+            [(ngModel)]="selectedProduct.startDate"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Auction End Date & Time</label>
+          <input
+            type="datetime-local"
+            name="endDate"
+            [(ngModel)]="selectedProduct.endDate"
+            required>
+        </div>
+
+      </div>
+
+      <div class="editor-actions">
+        <button type="button" class="cancel-btn" (click)="cancelEdit()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save-btn"
+          [disabled]="scheduleForm.invalid">
+          Save Schedule
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Auction List -->
+  <div class="auction-section">
+
+    <h2>My Auction Listings</h2>
+
+    <div class="auction-list" *ngIf="products.length > 0">
+
+      <div class="auction-card" *ngFor="let product of products">
+
+        <img
+          [src]="product.imageUrl"
+          [alt]="product.name">
+
+        <div class="auction-details">
+
+          <div class="title-row">
+            <h3>{{ product.name }}</h3>
+
+            <span
+              class="status"
+              [ngClass]="getStatus(product).toLowerCase().replace(' ', '-')">
+              {{ getStatus(product) }}
+            </span>
+          </div>
+
+          <p class="category">{{ product.category }}</p>
+
+          <div class="date-details">
+            <p>
+              <strong>Start:</strong>
+              {{ product.startDate | date:'medium' }}
+            </p>
+
+            <p>
+              <strong>End:</strong>
+              {{ product.endDate | date:'medium' }}
+            </p>
+          </div>
+
+          <p class="price">
+            Starting Price:
+            <strong>₹{{ product.startingPrice | number }}</strong>
+          </p>
+
+          <button
+            *ngIf="product.status === 'approved'"
+            class="edit-btn"
+            (click)="editSchedule(product)">
+            Edit Schedule
+          </button>
+
+          <p
+            class="approval-note"
+            *ngIf="product.status !== 'approved'">
+            Auction scheduling is available after admin approval.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="empty-state" *ngIf="products.length === 0">
+      <div>📅</div>
+      <h2>No Products Available</h2>
+      <p>Add a product first to create an auction schedule.</p>
+
+      <a routerLink="/seller/add-product" class="add-btn">
+        + Add Product
+      </a>
+    </div>
+
+  </div>
+
+</div>

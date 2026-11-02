@@ -1,0 +1,145 @@
+<div class="page-container">
+
+  <!-- Navigation -->
+  <header class="topbar">
+    <div class="logo">
+      🔨 BidZone
+    </div>
+
+    <nav>
+      <a routerLink="/seller">Seller</a>
+      <a routerLink="/admin">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Page Heading -->
+  <section class="heading">
+    <div>
+      <h1>Live Auctions</h1>
+      <p>Discover amazing products and place your bids.</p>
+    </div>
+
+    <span class="live-label">
+      <span class="live-dot"></span>
+      LIVE AUCTIONS
+    </span>
+  </section>
+
+  <!-- Auction Statistics -->
+  <section class="stats-grid">
+
+    <div class="stat-card">
+      <span>🔨</span>
+      <p>Live Auctions</p>
+      <h2>{{ products.length }}</h2>
+    </div>
+
+    <div class="stat-card">
+      <span>🏆</span>
+      <p>Marketplace</p>
+      <h2>BidZone</h2>
+    </div>
+
+    <div class="stat-card">
+      <span>⚡</span>
+      <p>Bidding</p>
+      <h2>Open</h2>
+    </div>
+
+  </section>
+
+  <!-- Product Listings -->
+  <section class="auction-section">
+
+    <div class="section-heading">
+      <div>
+        <h2>Available Auctions</h2>
+        <p>Choose an auction and participate.</p>
+      </div>
+    </div>
+
+    <div class="product-grid" *ngIf="products.length > 0">
+
+      <div class="product-card" *ngFor="let product of products">
+
+        <div class="image-container">
+          <img
+            [src]="product.imageUrl"
+            [alt]="product.name">
+
+          <span class="live-badge">
+            ● LIVE
+          </span>
+        </div>
+
+        <div class="product-content">
+
+          <span class="category">
+            {{ product.category }}
+          </span>
+
+          <h3>{{ product.name }}</h3>
+
+          <p class="description">
+            {{ product.description }}
+          </p>
+
+          <div class="price-container">
+
+            <div>
+              <small>Current Bid</small>
+              <h2>₹{{ product.currentBid | number }}</h2>
+            </div>
+
+            <div>
+              <small>Minimum Increment</small>
+              <h3>₹{{ product.minIncrement | number }}</h3>
+            </div>
+
+          </div>
+
+          <div class="seller-info">
+            <span>Seller:</span>
+            <strong>{{ product.sellerName }}</strong>
+          </div>
+
+          <div class="auction-dates">
+            <p>
+              <strong>Starts:</strong>
+              {{ product.startDate | date:'short' }}
+            </p>
+
+            <p>
+              <strong>Ends:</strong>
+              {{ product.endDate | date:'short' }}
+            </p>
+          </div>
+
+          <a
+            [routerLink]="['/bidding/auction', product.id]"
+            class="bid-button">
+            View Auction & Place Bid →
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="products.length === 0">
+
+      <div class="empty-icon">🔨</div>
+
+      <h2>No Live Auctions Available</h2>
+
+      <p>
+        There are currently no approved auctions running.
+        Please check again when a scheduled auction starts.
+      </p>
+
+    </div>
+
+  </section>
+
+</div>

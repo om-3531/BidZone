@@ -1,0 +1,144 @@
+<div class="page-container">
+
+  <header class="topbar">
+    <h2>BidZone</h2>
+    <a routerLink="/bidding">← Live Auctions</a>
+  </header>
+
+  <div class="not-found" *ngIf="!product">
+    <h2>{{ auctionState }}</h2>
+    <a routerLink="/bidding">Back to Live Auctions</a>
+  </div>
+
+  <div class="details-layout" *ngIf="product">
+
+    <section class="product-section">
+
+      <img
+        class="product-image"
+        [src]="product.imageUrl"
+        [alt]="product.name">
+
+      <span class="category">{{ product.category }}</span>
+
+      <h1>{{ product.name }}</h1>
+
+      <p class="description">{{ product.description }}</p>
+
+      <div class="product-info">
+        <div>
+          <small>Seller</small>
+          <strong>{{ product.sellerName }}</strong>
+        </div>
+
+        <div>
+          <small>Starting Price</small>
+          <strong>₹{{ product.startingPrice | number }}</strong>
+        </div>
+
+        <div>
+          <small>Current Highest Bid</small>
+          <strong>₹{{ product.currentBid | number }}</strong>
+        </div>
+
+        <div>
+          <small>Minimum Increment</small>
+          <strong>₹{{ product.minIncrement | number }}</strong>
+        </div>
+      </div>
+
+      <div class="schedule-info">
+        <p>
+          <strong>Auction Starts:</strong>
+          {{ product.startDate | date:'medium' }}
+        </p>
+
+        <p>
+          <strong>Auction Ends:</strong>
+          {{ product.endDate | date:'medium' }}
+        </p>
+      </div>
+
+    </section>
+
+    <aside class="bidding-panel">
+
+      <div class="timer-card">
+        <span class="auction-status">{{ auctionState }}</span>
+        <h2>⏳ Auction Countdown</h2>
+        <div class="countdown">{{ countdown }}</div>
+      </div>
+
+      <div class="bid-card">
+
+        <h2>Place Your Bid</h2>
+
+        <p class="current-price">
+          Current Bid:
+          <strong>₹{{ product.currentBid | number }}</strong>
+        </p>
+
+        <p class="minimum-price">
+          Minimum next bid: ₹{{ minimumBid | number }}
+        </p>
+
+        <form #bidForm="ngForm" (ngSubmit)="placeBid()">
+
+          <div class="form-group">
+            <label>Your Name</label>
+            <input
+              type="text"
+              name="bidderName"
+              [(ngModel)]="bidderName"
+              placeholder="Enter your name"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label>Your Bid Amount (₹)</label>
+            <input
+              type="number"
+              name="bidAmount"
+              [(ngModel)]="bidAmount"
+              [min]="minimumBid"
+              required>
+          </div>
+
+          <div
+            class="message"
+            [class.success]="messageType === 'success'"
+            [class.error]="messageType === 'error'"
+            *ngIf="message">
+            {{ message }}
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="!bidForm.valid || !canPlaceBid">
+            Place Bid
+          </button>
+
+        </form>
+
+        <p class="disabled-note" *ngIf="!canPlaceBid">
+          Bidding is available only while the auction is live.
+        </p>
+
+      </div>
+
+      <div class="highest-bidder" *ngIf="bids.length > 0">
+        <h3>Highest Bidder</h3>
+        <p>{{ bids[0].bidderName }}</p>
+        <strong>₹{{ bids[0].bidAmount | number }}</strong>
+      </div>
+
+      <div class="history-link">
+        <a [routerLink]="['/bidding/history', product.id]">
+          View Complete Bid History →
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+</div>

@@ -1,0 +1,160 @@
+<div class="page-container">
+
+  <!-- Navbar -->
+  <header class="topbar">
+
+    <h2>🔨 BidZone</h2>
+
+    <nav>
+      <a routerLink="/bidding">Live Auctions</a>
+      <a routerLink="/seller">Seller Dashboard</a>
+      <a routerLink="/admin">Admin</a>
+    </nav>
+
+  </header>
+
+  <!-- Heading -->
+  <section class="page-heading">
+
+    <div>
+      <h1>Auction History</h1>
+      <p>View completed auctions and their bidding results.</p>
+    </div>
+
+    <span class="history-label">
+      COMPLETED AUCTIONS
+    </span>
+
+  </section>
+
+  <!-- Statistics -->
+  <section class="stats-grid">
+
+    <div class="stat-card blue">
+      <div class="stat-icon">🔨</div>
+      <p>Total Completed Auctions</p>
+      <h2>{{ totalAuctions }}</h2>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-icon">🏆</div>
+      <p>Auctions With Bids</p>
+      <h2>{{ auctionsWithBids }}</h2>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-icon">📋</div>
+      <p>Auctions Without Bids</p>
+      <h2>{{ auctionsWithoutBids }}</h2>
+    </div>
+
+  </section>
+
+  <!-- History Table -->
+  <section class="history-section">
+
+    <div class="section-heading">
+      <div>
+        <h2>Completed Auction Records</h2>
+        <p>Latest completed auctions appear first.</p>
+      </div>
+    </div>
+
+    <div class="table-container" *ngIf="history.length > 0">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Seller</th>
+            <th>Starting Price</th>
+            <th>Final Bid</th>
+            <th>Total Bids</th>
+            <th>Auction Ended</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let item of history">
+
+            <td>
+              <div class="product-cell">
+
+                <img
+                  [src]="item.product.imageUrl"
+                  [alt]="item.product.name">
+
+                <strong>{{ item.product.name }}</strong>
+
+              </div>
+            </td>
+
+            <td>{{ item.product.sellerName }}</td>
+
+            <td>
+              ₹{{ item.product.startingPrice | number }}
+            </td>
+
+            <td class="final-price">
+
+              <span *ngIf="item.highestBid">
+                ₹{{ item.highestBid.bidAmount | number }}
+              </span>
+
+              <span *ngIf="!item.highestBid">
+                —
+              </span>
+
+            </td>
+
+            <td>{{ item.totalBids }}</td>
+
+            <td>
+              {{ item.product.endDate | date:'medium' }}
+            </td>
+
+            <td>
+
+              <span
+                class="status"
+                [class.completed]="item.highestBid"
+                [class.no-bids]="!item.highestBid">
+
+                {{ item.highestBid ? 'Bids Received' : 'No Bids' }}
+
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="history.length === 0">
+
+      <div class="empty-icon">🏆</div>
+
+      <h2>No Completed Auctions Yet</h2>
+
+      <p>
+        Completed approved auctions will appear here
+        after their scheduled end time.
+      </p>
+
+      <a routerLink="/bidding" class="primary-btn">
+        Explore Live Auctions
+      </a>
+
+    </div>
+
+  </section>
+
+</div>

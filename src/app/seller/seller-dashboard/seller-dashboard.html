@@ -1,0 +1,97 @@
+<div class="dashboard">
+
+  <header class="topbar">
+    <h2>BidZone Seller Panel</h2>
+    <span>Seller Dashboard</span>
+  </header>
+
+  <section class="welcome">
+    <div>
+      <h1>Welcome, Seller! 👋</h1>
+      <p>Manage your products and auction activities.</p>
+    </div>
+
+    <a routerLink="/seller/add-product" class="add-btn">
+      + Add New Product
+    </a>
+  </section>
+
+  <section class="stats">
+
+    <div class="stat-card">
+      <h3>Total Products</h3>
+      <h1>{{ totalProducts }}</h1>
+    </div>
+
+    <div class="stat-card pending">
+      <h3>Pending Approval</h3>
+      <h1>{{ pendingProducts }}</h1>
+    </div>
+
+    <div class="stat-card approved">
+      <h3>Approved Products</h3>
+      <h1>{{ approvedProducts }}</h1>
+    </div>
+
+    <div class="stat-card rejected">
+      <h3>Rejected Products</h3>
+      <h1>{{ rejectedProducts }}</h1>
+    </div>
+
+  </section>
+
+  <section class="actions">
+    <h2>Seller Activities</h2>
+
+    <div class="action-grid">
+
+      <a routerLink="/seller/profile" class="action-card">
+        <span>👤</span>
+        <h3>My Profile</h3>
+        <p>Manage seller information</p>
+      </a>
+
+      <a routerLink="/seller/add-product" class="action-card">
+        <span>📦</span>
+        <h3>Add Product</h3>
+        <p>Create a new product listing</p>
+      </a>
+
+      <a routerLink="/seller/products" class="action-card">
+        <span>🛍️</span>
+        <h3>My Products</h3>
+        <p>View and manage listings</p>
+      </a>
+
+      <a routerLink="/seller/auction-schedule" class="action-card">
+        <span>📅</span>
+        <h3>Auction Schedule</h3>
+        <p>Manage auction timings</p>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="recent">
+    <h2>Recent Products</h2>
+
+    <p *ngIf="products.length === 0">
+      No products added yet. Start by adding your first product!
+    </p>
+
+    <div class="product-row" *ngFor="let product of products">
+      <div>
+        <strong>{{ product.name }}</strong>
+        <p>{{ product.category }}</p>
+      </div>
+
+      <span>₹{{ product.startingPrice }}</span>
+
+      <span class="status" [class]="product.status">
+        {{ product.status | titlecase }}
+      </span>
+    </div>
+
+  </section>
+
+</div>

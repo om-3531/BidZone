@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  min-height: 100vh;
+  padding: 18px;
+  background: #f4f6fb;
+  font-family: Arial, sans-serif;
+}
+
+.topbar {
+  background: #172653;
+  color: white;
+  padding: 20px 35px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h2 {
+  margin: 0;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 35px 0 25px;
+}
+
+.page-heading h1 {
+  color: #172653;
+  margin-bottom: 8px;
+}
+
+.page-heading p,
+.subtitle {
+  color: #64748b;
+}
+
+.back-btn {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-card {
+  max-width: 950px;
+  margin: auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.form-card h2 {
+  color: #172653;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #263653;
+  margin-bottom: 9px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5dce8;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.image-preview {
+  margin-bottom: 20px;
+}
+
+.image-preview img {
+  width: 180px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.section-heading {
+  color: #172653;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.form-actions button {
+  padding: 13px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.save-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.save-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.error-message {
+  padding: 12px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 8px;
+}
+
+@media (max-width: 650px) {
+  .form-row,
+  .page-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+}

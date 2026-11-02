@@ -1,0 +1,147 @@
+<div class="profile-page">
+
+  <header class="topbar">
+    <h2>BidZone Seller Panel</h2>
+    <a routerLink="/seller">Seller Dashboard</a>
+  </header>
+
+  <div class="heading">
+    <div>
+      <h1>My Seller Profile</h1>
+      <p>Manage your personal and business information.</p>
+    </div>
+
+    <a routerLink="/seller" class="back-btn">← Back to Dashboard</a>
+  </div>
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+      <div class="avatar">👤</div>
+      <div>
+        <h2>{{ profile.fullName || 'Your Name' }}</h2>
+        <p>Seller ID: {{ profile.sellerId }}</p>
+      </div>
+    </div>
+
+    <form #profileForm="ngForm" (ngSubmit)="saveProfile()">
+
+      <h3>Personal Information</h3>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input
+            type="text"
+            name="fullName"
+            [(ngModel)]="profile.fullName"
+            placeholder="Enter your full name"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="profile.email"
+            placeholder="Enter email address"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input
+            type="tel"
+            name="phone"
+            [(ngModel)]="profile.phone"
+            placeholder="Enter 10 digit mobile number"
+            pattern="[0-9]{10}"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Business Name</label>
+          <input
+            type="text"
+            name="businessName"
+            [(ngModel)]="profile.businessName"
+            placeholder="Enter business name">
+        </div>
+
+      </div>
+
+      <h3>Address Information</h3>
+
+      <div class="form-group">
+        <label>Full Address *</label>
+        <textarea
+          name="address"
+          [(ngModel)]="profile.address"
+          rows="3"
+          placeholder="Enter your full address"
+          required>
+        </textarea>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>City *</label>
+          <input
+            type="text"
+            name="city"
+            [(ngModel)]="profile.city"
+            placeholder="Enter city"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>State *</label>
+          <input
+            type="text"
+            name="state"
+            [(ngModel)]="profile.state"
+            placeholder="Enter state"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>PIN Code *</label>
+          <input
+            type="text"
+            name="pincode"
+            [(ngModel)]="profile.pincode"
+            placeholder="6 digit PIN code"
+            pattern="[0-9]{6}"
+            required>
+        </div>
+
+      </div>
+
+      <h3>About Your Business</h3>
+
+      <div class="form-group">
+        <label>Seller Description</label>
+        <textarea
+          name="description"
+          [(ngModel)]="profile.description"
+          rows="4"
+          placeholder="Tell buyers about yourself or your business">
+        </textarea>
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="profileForm.invalid">
+          Save Profile
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

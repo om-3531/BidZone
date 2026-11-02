@@ -1,0 +1,139 @@
+<div class="page-container">
+
+  <header class="topbar">
+    <h2>BidZone Seller Panel</h2>
+    <a routerLink="/seller">Seller Dashboard</a>
+  </header>
+
+  <div class="page-heading">
+    <div>
+      <h1>My Products</h1>
+      <p>View, manage and track your product listings.</p>
+    </div>
+
+    <a routerLink="/seller/add-product" class="add-btn">
+      + Add New Product
+    </a>
+  </div>
+
+  <!-- Product Statistics -->
+  <div class="stats-grid">
+
+    <div class="stat-card total">
+      <p>Total Products</p>
+      <h2>{{ products.length }}</h2>
+    </div>
+
+    <div class="stat-card pending">
+      <p>Pending Approval</p>
+      <h2>{{ pendingCount }}</h2>
+    </div>
+
+    <div class="stat-card approved">
+      <p>Approved Products</p>
+      <h2>{{ approvedCount }}</h2>
+    </div>
+
+    <div class="stat-card rejected">
+      <p>Rejected Products</p>
+      <h2>{{ rejectedCount }}</h2>
+    </div>
+
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="filter-section">
+
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search products by name or category">
+
+    <select [(ngModel)]="selectedStatus">
+      <option value="all">All Status</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+    </select>
+
+  </div>
+
+  <!-- Product Cards -->
+  <div class="product-grid" *ngIf="filteredProducts.length > 0">
+
+    <div class="product-card" *ngFor="let product of filteredProducts">
+
+      <img
+        [src]="product.imageUrl"
+        [alt]="product.name"
+        class="product-image">
+
+      <div class="product-content">
+
+        <div class="product-top">
+          <span class="category">{{ product.category }}</span>
+
+          <span class="status" [ngClass]="product.status">
+            {{ product.status | titlecase }}
+          </span>
+        </div>
+
+        <h3>{{ product.name }}</h3>
+
+        <p class="description">{{ product.description }}</p>
+
+        <div class="price-info">
+          <div>
+            <small>Starting Price</small>
+            <h3>₹{{ product.startingPrice | number }}</h3>
+          </div>
+
+          <div>
+            <small>Current Bid</small>
+            <h3>₹{{ product.currentBid | number }}</h3>
+          </div>
+        </div>
+
+        <div class="auction-info">
+          <p><strong>Auction Starts:</strong>
+            {{ product.startDate | date:'medium' }}
+          </p>
+
+          <p><strong>Auction Ends:</strong>
+            {{ product.endDate | date:'medium' }}
+          </p>
+        </div>
+
+        <div class="card-actions">
+          <a
+            [routerLink]="['/seller/edit-product', product.id]"
+            class="edit-btn">
+            Edit
+          </a>
+
+          <button
+            class="delete-btn"
+            (click)="deleteProduct(product.id)">
+            Delete
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="filteredProducts.length === 0">
+    <div class="empty-icon">📦</div>
+    <h2>No Products Found</h2>
+    <p>
+      You haven't added any products yet, or no products match your search.
+    </p>
+
+    <a routerLink="/seller/add-product" class="add-btn">
+      Add Your First Product
+    </a>
+  </div>
+
+</div>

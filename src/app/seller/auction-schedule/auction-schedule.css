@@ -1,0 +1,315 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  min-height: 100vh;
+  padding: 18px;
+  background: #f4f6fb;
+  font-family: Arial, sans-serif;
+}
+
+.topbar {
+  background: #172653;
+  color: white;
+  padding: 20px 35px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h2 {
+  margin: 0;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 35px 0 25px;
+}
+
+.page-heading h1 {
+  color: #172653;
+  margin-bottom: 8px;
+}
+
+.page-heading p {
+  color: #64748b;
+}
+
+.back-btn {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  border-left: 5px solid #2563eb;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.stat-card p {
+  color: #64748b;
+}
+
+.stat-card h2 {
+  color: #172653;
+  font-size: 28px;
+}
+
+.stat-card.upcoming {
+  border-color: #eab308;
+}
+
+.stat-card.live {
+  border-color: #16a34a;
+}
+
+.stat-card.completed {
+  border-color: #64748b;
+}
+
+.auction-section,
+.schedule-editor {
+  background: white;
+  padding: 25px;
+  border-radius: 13px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.auction-section > h2,
+.schedule-editor h2 {
+  color: #172653;
+  margin-top: 0;
+}
+
+.auction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auction-card {
+  display: flex;
+  gap: 22px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.auction-card img {
+  width: 180px;
+  height: 155px;
+  object-fit: cover;
+  border-radius: 9px;
+  background: #e2e8f0;
+}
+
+.auction-details {
+  flex: 1;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-row h3 {
+  color: #172653;
+  margin: 0;
+}
+
+.category {
+  color: #2563eb;
+  font-size: 14px;
+}
+
+.date-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.price {
+  color: #334155;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status.upcoming {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.live {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.completed {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.status.pending-approval {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.edit-btn,
+.save-btn,
+.add-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.approval-note {
+  color: #b45309;
+  font-size: 13px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 20px 0;
+}
+
+.form-group label {
+  color: #263653;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 13px;
+  border: 1px solid #d5dce8;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn {
+  background: #e2e8f0;
+  color: #334155;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.message {
+  padding: 13px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.empty-state div {
+  font-size: 50px;
+}
+
+.empty-state p {
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .auction-card {
+    flex-direction: column;
+  }
+
+  .auction-card img {
+    width: 100%;
+  }
+
+  .form-row,
+  .page-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

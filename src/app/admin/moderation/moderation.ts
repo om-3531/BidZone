@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
-interface Product {
-  id: number;
+import { SellerService } from '../../services/seller.service';
+import { Product } from '../../models/product.model';
+
+interface ModerationProduct {
+  id: string;
   name: string;
   seller: string;
   category: string;
@@ -20,66 +25,42 @@ interface Product {
   templateUrl: './moderation.html',
   styleUrl: './moderation.css'
 })
-export class Moderation {
+export class Moderation implements OnInit, OnDestroy {
 
   searchText = '';
   selectedCategory = 'All';
   selectedStatus = 'All';
 
-  selectedProduct: Product | null = null;
+  selectedProduct: ModerationProduct | null = null;
+  products: ModerationProduct[] = [];
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'iPhone 15',
-      seller: 'Om Nagare',
-      category: 'Electronics',
-      price: 25000,
-      image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500',
-      status: 'Pending',
-      description: 'Apple iPhone 15 in good condition with original accessories.'
-    },
-    {
-      id: 2,
-      name: 'Gaming Laptop',
-      seller: 'Rahul Sharma',
-      category: 'Electronics',
-      price: 55000,
-      image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500',
-      status: 'Pending',
-      description: 'High performance gaming laptop.'
-    },
-    {
-      id: 3,
-      name: 'Mountain Bicycle',
-      seller: 'Amit Patil',
-      category: 'Sports',
-      price: 12000,
-      image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=500',
-      status: 'Approved',
-      description: 'Mountain bicycle in excellent condition.'
-    },
-    {
-      id: 4,
-      name: 'Digital Camera',
-      seller: 'Priya Shah',
-      category: 'Electronics',
-      price: 18000,
-      image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500',
-      status: 'Rejected',
-      description: 'Digital camera with lens and accessories.'
-    },
-    {
-      id: 5,
-      name: 'Wrist Watch',
-      seller: 'Karan Patel',
-      category: 'Fashion',
-      price: 5000,
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-      status: 'Pending',
-      description: 'Stylish wrist watch.'
-    }
-  ];
+  private subscription?: Subscription;
+
+  constructor(private sellerService: SellerService) {}
+
+  ngOnInit(): void {
+    this.subscription = this.sellerService.products$.subscribe(
+      (data: Product[]) => {
+        this.products = data.map(product => ({
+          id: product.id,
+          name: product.name,
+          seller: product.sellerName,
+          category: product.category,
+          price: product.startingPrice,
+          image: product.imageUrl,
+          status: this.formatStatus(product.status),
+          description: product.description
+        }));
+      }
+    );
+  }
+
+  private formatStatus(
+    status: Product['status']
+  ): ModerationProduct['status'] {
+    return status.charAt(0).toUpperCase() + status.slice(1) as
+      ModerationProduct['status'];
+  }
 
   get pendingCount(): number {
     return this.products.filter(p => p.status === 'Pending').length;
@@ -93,9 +74,8 @@ export class Moderation {
     return this.products.filter(p => p.status === 'Rejected').length;
   }
 
-  get filteredProducts(): Product[] {
+  get filteredProducts(): ModerationProduct[] {
     return this.products.filter(product => {
-
       const search = this.searchText.toLowerCase();
 
       const matchesSearch =
@@ -114,17 +94,17 @@ export class Moderation {
     });
   }
 
-  approveProduct(product: Product): void {
-    product.status = 'Approved';
+  approveProduct(product: ModerationProduct): void {
+    this.sellerService.updateProductStatus(product.id, 'approved');
     this.selectedProduct = null;
   }
 
-  rejectProduct(product: Product): void {
-    product.status = 'Rejected';
+  rejectProduct(product: ModerationProduct): void {
+    this.sellerService.updateProductStatus(product.id, 'rejected');
     this.selectedProduct = null;
   }
 
-  viewProduct(product: Product): void {
+  viewProduct(product: ModerationProduct): void {
     this.selectedProduct = product;
   }
 
@@ -132,4 +112,7 @@ export class Moderation {
     this.selectedProduct = null;
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }

@@ -1,0 +1,143 @@
+<div class="page-container">
+
+  <header class="topbar">
+    <h2>🔨 BidZone</h2>
+
+    <nav>
+      <a routerLink="/results/history">Auction History</a>
+      <a routerLink="/results/payment">Payment Status</a>
+      <a routerLink="/admin">Admin</a>
+    </nav>
+  </header>
+
+  <section class="page-heading">
+    <div>
+      <h1>🏆 Winner Selection</h1>
+      <p>View auction winners and their final bidding details.</p>
+    </div>
+
+    <span class="page-label">AUCTION RESULTS</span>
+  </section>
+
+  <!-- Statistics -->
+  <section class="stats-grid">
+
+    <div class="stat-card">
+      <p>Completed Auctions</p>
+      <h2>{{ records.length }}</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>Auctions With Winners</p>
+      <h2>{{ selectedWinners }}</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>Auctions Without Winners</p>
+      <h2>{{ noWinnerAuctions }}</h2>
+    </div>
+
+  </section>
+
+  <!-- Winner Records -->
+  <section class="winner-section">
+
+    <div class="section-heading">
+      <h2>Winner Announcements</h2>
+      <p>Highest bidder of each completed auction.</p>
+    </div>
+
+    <div class="winner-grid" *ngIf="records.length > 0">
+
+      <div class="winner-card" *ngFor="let record of records">
+
+        <div class="winner-header">
+          <span>🏆 Auction Result</span>
+          <span
+            class="status"
+            [class.won]="record.winner"
+            [class.no-winner]="!record.winner">
+            {{ record.winner ? 'Winner Selected' : 'No Winner' }}
+          </span>
+        </div>
+
+        <h3>{{ record.product.name }}</h3>
+
+        <p class="category">
+          {{ record.product.category }}
+        </p>
+
+        <div class="winner-details" *ngIf="record.winner">
+
+          <div class="avatar">👤</div>
+
+          <div>
+            <small>Winning Bidder</small>
+            <h2>{{ record.winner.bidderName }}</h2>
+          </div>
+
+        </div>
+
+        <div class="no-winner-message" *ngIf="!record.winner">
+          <h3>No bids received</h3>
+          <p>This auction ended without any bids.</p>
+        </div>
+
+        <div class="result-info">
+
+          <div>
+            <small>Starting Price</small>
+            <strong>
+              ₹{{ record.product.startingPrice | number }}
+            </strong>
+          </div>
+
+          <div>
+            <small>Winning Amount</small>
+            <strong class="winning-amount">
+              {{ record.winner
+                ? ('₹' + (record.winner.bidAmount | number))
+                : '—' }}
+            </strong>
+          </div>
+
+          <div>
+            <small>Total Bids</small>
+            <strong>{{ record.totalBids }}</strong>
+          </div>
+
+          <div>
+            <small>Auction End Date</small>
+            <strong>
+              {{ record.product.endDate | date:'mediumDate' }}
+            </strong>
+          </div>
+
+        </div>
+
+        <a
+          [routerLink]="['/bidding/history', record.product.id]"
+          class="history-btn">
+          View Bid History →
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="records.length === 0">
+      <div class="empty-icon">🏆</div>
+      <h2>No Winners Announced Yet</h2>
+      <p>
+        Winners will appear here after approved auctions are completed.
+      </p>
+
+      <a routerLink="/results/history">
+        View Auction History
+      </a>
+    </div>
+
+  </section>
+
+</div>

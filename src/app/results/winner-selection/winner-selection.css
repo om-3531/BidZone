@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  min-height: 100vh;
+  padding: 22px;
+  background: #f4f6fb;
+  font-family: Arial, sans-serif;
+}
+
+.topbar {
+  background: #172653;
+  color: white;
+  padding: 20px 35px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h2 {
+  margin: 0;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-heading {
+  margin: 35px 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.page-heading h1 {
+  color: #172653;
+  font-size: 30px;
+}
+
+.page-heading p,
+.section-heading p {
+  color: #64748b;
+}
+
+.page-label {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: white;
+  padding: 23px;
+  border-radius: 12px;
+  border-left: 5px solid #2563eb;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.stat-card:nth-child(2) {
+  border-color: #16a34a;
+}
+
+.stat-card:nth-child(3) {
+  border-color: #f59e0b;
+}
+
+.stat-card p {
+  color: #64748b;
+}
+
+.stat-card h2 {
+  color: #172653;
+  font-size: 28px;
+}
+
+.winner-section {
+  background: white;
+  padding: 25px;
+  border-radius: 13px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.section-heading {
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  color: #172653;
+}
+
+.winner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.winner-card {
+  padding: 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.winner-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.status {
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.status.won {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.no-winner {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.winner-card h3 {
+  color: #172653;
+  margin: 20px 0 5px;
+}
+
+.category {
+  color: #2563eb;
+  font-size: 13px;
+}
+
+.winner-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f0fdf4;
+  padding: 17px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  background: #dcfce7;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+
+.winner-details small,
+.result-info small {
+  color: #64748b;
+}
+
+.winner-details h2 {
+  color: #15803d;
+  margin: 6px 0 0;
+  font-size: 19px;
+}
+
+.no-winner-message {
+  background: #fffbeb;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.no-winner-message h3 {
+  color: #92400e;
+  margin: 0 0 7px;
+}
+
+.no-winner-message p {
+  color: #64748b;
+  margin: 0;
+}
+
+.result-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 20px 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.result-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-info strong {
+  color: #172653;
+  font-size: 14px;
+}
+
+.result-info .winning-amount {
+  color: #16a34a;
+}
+
+.history-btn {
+  display: block;
+  text-align: center;
+  padding: 13px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 55px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.empty-icon {
+  font-size: 55px;
+}
+
+.empty-state h2 {
+  color: #172653;
+}
+
+.empty-state p {
+  color: #64748b;
+}
+
+.empty-state a {
+  display: inline-block;
+  margin-top: 12px;
+  color: #2563eb;
+}
+
+@media (max-width: 750px) {
+  .stats-grid,
+  .winner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar {
+    padding: 18px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
